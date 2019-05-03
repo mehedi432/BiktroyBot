@@ -41,8 +41,8 @@ public class BikroyBott implements BikroyBotApi {
 				Product product = new Product();
 				product.setName(cat.getTextContent());
 				String s = postList.get(i).getTextContent();
-				if(s.contains(",")) product.setPostAmount(getAmount(s));
-				else product.setPostAmount(Integer.parseInt(s));
+				//if(s.contains(",")) product.setPostAmount(getAmount(s));
+				//else product.setPostAmount(Integer.parseInt(s));
 				productList.add(product);
 				i++;
 			}

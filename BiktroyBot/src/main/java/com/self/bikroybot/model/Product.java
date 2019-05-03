@@ -1,27 +1,41 @@
 package com.self.bikroybot.model;
 
 public class Product {
-	private String name;
-	private int postAmount;
 	
+	private String name;
+	private String area;
+	private String price;
+	
+	
+
 	public String getName() {
 		return name;
 	}
+
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPostAmount() {
-		return postAmount;
+
+	public String getArea() {
+		return area;
 	}
-	public void setPostAmount(int postAmount) {
-		this.postAmount = postAmount;
+
+	public void setArea(String area) {
+		this.area = area;
 	}
-	
-	@Override
-	public String toString() {
-		return "Product [name=" + name + ", postAmount=" + postAmount + "]";
+
+
+
+	public String getPrice() {
+		return price;
 	}
-	
-	
-	
+
+
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 }

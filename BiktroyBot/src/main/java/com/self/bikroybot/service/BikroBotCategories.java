@@ -16,7 +16,11 @@ public class BikroBotCategories implements BikroyBotApi {
 	private static final String URL = "https://bikroy.com/";
 	private static final String CAT_EL_PATH = "//div[@class='home-categories']/div/div/h4";
 	private static final String LINK_EL_PATH = "//div[@class='home-categories']/div/div/p";
-	private static final String catPath = "//div/[@class='ui-accordion-content']/";
+	
+	private static final String productName = "//div[@class='item-content']/a";
+	private static final String productPrice = "//div[@class='item-content']/p[@class='item-info']/span";
+	private static final String productArea = "//div[@class='item-content']/p[@class='item-location']/spna[@class='item-area']";
+
 	private static WebClient client = getClient();
 	
 	
@@ -42,18 +46,41 @@ public class BikroBotCategories implements BikroyBotApi {
 			HtmlPage page = client.getPage(URL);
 			List<HtmlElement> links = page.getByXPath(path);
 			
+			// Iterating over category list
 			for (HtmlElement link : links) {
 				if(link.getAttribute("href").equals("https://bikroy.com/bn/jobs")) continue;
 				String category = getBaseUrl() + link.getAttribute("href").toString();
+				int pageCount=1;
+				while(pageCount<=getTotalPage()) {
+					HtmlPage categoryPage = client.getPage(category);
+					
+					List<HtmlElement> names = categoryPage.getByXPath(productName);
+					List<HtmlElement> prices = categoryPage.getByXPath(productPrice);
+					List<HtmlElement> areas = categoryPage.getByXPath(productArea);
+					
+					for (int i=0; i<names.size(); i++) {
+						System.out.println(names.get(i).getTextContent());		
+//						System.out.println(name.getBaseURI());
+					}
+					
+					for(int j=0; j<prices.size(); j++ ) {
+						System.out.println(prices.get(j).getTextContent());
+					}
+				}
 				
-				HtmlPage categoryPage = client.getPage(category);
-				categoryPage.getByXPath();
-				System.out.println(categoryPage);
+				
+				
+				//System.out.println(categoryPage);
 			}
 			
 		} catch (FailingHttpStatusCodeException | IOException e) {
 			e.printStackTrace();
 		}
+		return 0;
+	}
+
+	private int getTotalPage() {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -67,11 +94,12 @@ public class BikroBotCategories implements BikroyBotApi {
 		}
 		return client;
 	}
+	
+	private static final String TOTAL_COUNT_EL_PATH = "//span[@class='t-small summary-count']";
 
 	@Override
 	public void saveProduct() {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
