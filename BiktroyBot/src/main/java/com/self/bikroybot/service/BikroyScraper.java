@@ -2,11 +2,13 @@ package com.self.bikroybot.service;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class BikroyScraper implements BikroyBotApi {
@@ -25,8 +27,15 @@ public class BikroyScraper implements BikroyBotApi {
 	}
 	
 	public void getCategories() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		final String catPath = "//div[@class='home-categories']";
+		
 		HtmlPage categories = client.getPage(URL);
-		System.out.println(categories.asXml());
+		List<HtmlElement> categoryList = categories.getByXPath(catPath);
+		
+		categoryList.forEach(item -> {
+			System.out.println(item);
+		});
+		//System.out.println(categories.asXml());
 	}
 
 	private WebClient getClient() {

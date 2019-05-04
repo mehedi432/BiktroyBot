@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.self.bikroybot.service.BikroBotCategories;
 import com.self.bikroybot.service.BikroyBotApi;
 import com.self.bikroybot.service.BikroyBott;
+import com.self.bikroybot.service.BikroyScraper;
 
 @SpringBootApplication
 public class BiktroyBotApplication {
@@ -14,7 +15,7 @@ public class BiktroyBotApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(BiktroyBotApplication.class, args);
-		bot = new BikroBotCategories();
+		bot = new BikroyScraper();
 		bot.scrapeProduct();
 	}
 }
